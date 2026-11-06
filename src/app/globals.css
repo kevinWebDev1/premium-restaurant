@@ -1,0 +1,89 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --color-obsidian: #111110;
+    --color-charcoal: #24221F;
+    --color-ivory: #EAE3D7;
+    --color-gold: #B99A65;
+    --color-taupe: #776B5D;
+  }
+
+  html {
+    background-color: #111110;
+    color: #EAE3D7;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: #111110;
+    color: #EAE3D7;
+    overflow-x: hidden;
+    font-family: var(--font-body, "Plus Jakarta Sans", sans-serif);
+    margin: 0;
+    padding: 0;
+  }
+
+  ::selection {
+    background-color: #B99A65;
+    color: #111110;
+  }
+}
+
+.font-heading {
+  font-family: var(--font-heading, "Cormorant Garamond", Georgia, serif);
+}
+
+.font-body {
+  font-family: var(--font-body, "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif);
+}
+
+/* Luxury subtle vignette and dark lighting gradients */
+.gold-glow {
+  box-shadow: 0 0 35px -5px rgba(185, 154, 101, 0.18);
+}
+
+.gold-border {
+  border-color: rgba(185, 154, 101, 0.35);
+}
+
+.gold-line {
+  height: 1px;
+  background: linear-gradient(90deg, #B99A65 0%, rgba(185, 154, 101, 0.3) 70%, transparent 100%);
+}
+
+/* Hide scrollbar utility for horizontal tab bars */
+.no-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  height: 0px !important;
+  width: 0px !important;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+/* Hide next dev indicator overlay from obstructing mobile bottom nav */
+[data-nextjs-toast], [data-next-badge], nextjs-portal {
+  display: none !important;
+}
+
+/* Custom luxury scrollbar for main page body */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111110;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #24221F;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #776B5D;
+}
+
