@@ -220,7 +220,10 @@ export default function MenuClientView() {
       <TableModal />
       <FloatingOrderTray />
       <OrderReviewSheet />
-      <MobileBottomNav />
+      <MobileBottomNav
+        activeCategory={activeCategory}
+        onSelectCategory={handleSelectCategory}
+      />
     </div>
   );
 }

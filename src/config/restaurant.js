@@ -26,9 +26,9 @@ export const defaultRestaurant = {
   },
 
   contact: {
-    phone: "+1 (555) 382-9104",
-    displayPhone: "+1 (555) 382-9104",
-    whatsappNumber: "15553829104",
+    phone: "+91 77839 37005",
+    displayPhone: "+91 77839 37005",
+    whatsappNumber: "917783937005",
     address: "428 Grand Avenue, Coastal District, CA 90291",
     googleMapsUrl: "https://maps.google.com",
     city: "Coastal District, CA",
