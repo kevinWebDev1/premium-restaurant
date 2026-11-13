@@ -14,6 +14,12 @@ export function CartProvider({ children, restaurant: initialRestaurant = default
   const [isTableModalOpen, setIsTableModalOpen] = useState(false);
 
   // Storage key formula: nami_cart_{restaurantId}_table_{tableNumber || 'counter'}
+  useEffect(() => {
+    if (initialRestaurant) {
+      setActiveRestaurant(initialRestaurant);
+    }
+  }, [initialRestaurant]);
+
   const getStorageKey = useCallback(
     (tbl) => {
       const restId = activeRestaurant?.id || "default";

@@ -1,15 +1,23 @@
 import { Suspense } from "react";
-import { defaultRestaurant } from "@/config/restaurant";
+import { defaultRestaurant, getRestaurantByBrand } from "@/config/restaurant";
 import { CartProvider } from "@/context/CartContext";
 import MenuClientView from "@/components/menu/MenuClientView";
 
-export const metadata = {
-  title: "Digital Menu & Table Ordering | NAMI Contemporary Gastronomy",
-  description:
-    "Explore our seasonal crudo, binchotan hearth specialties, and artisanal mixology. Request orders directly from your table.",
-};
+export async function generateMetadata({ searchParams }) {
+  const sp = await searchParams;
+  const brand = sp?.brand || sp?.restaurant || sp?.name;
+  const restaurant = brand ? getRestaurantByBrand(brand) : defaultRestaurant;
+  return {
+    title: `Digital Menu & Table Ordering | ${restaurant.name}`,
+    description: restaurant.description,
+  };
+}
 
-export default function MenuPage() {
+export default async function MenuPage({ searchParams }) {
+  const sp = await searchParams;
+  const brand = sp?.brand || sp?.restaurant || sp?.name;
+  const restaurant = brand ? getRestaurantByBrand(brand) : defaultRestaurant;
+
   return (
     <Suspense
       fallback={
@@ -18,10 +26,9 @@ export default function MenuPage() {
         </div>
       }
     >
-      <CartProvider restaurant={defaultRestaurant}>
+      <CartProvider restaurant={restaurant}>
         <MenuClientView />
       </CartProvider>
     </Suspense>
   );
 }
-

@@ -100,7 +100,7 @@ export function FanRevealImage({ src, alt, badgeText, pivot = "bottom-right" }) 
   );
 }
 
-export default function SignatureDishes({ dishes, onOpenMenu }) {
+export default function SignatureDishes({ dishes, onOpenMenu, menuUrl = "/menu" }) {
   const sectionRef = useRef(null);
   const headerRef = useRef(null);
   const dishRefs = useRef([]);
@@ -370,11 +370,11 @@ export default function SignatureDishes({ dishes, onOpenMenu }) {
                     </div>
 
                     <a
-                      href="/menu"
+                      href={menuUrl}
                       onClick={onOpenMenu}
                       className="group/btn inline-flex items-center gap-2 text-xs tracking-[0.2em] text-[#EAE3D7] hover:text-[#B99A65] uppercase font-medium transition-colors"
                     >
-                      <span>Explore Dish in Menu</span>
+                      <span>View in Menu</span>
                       <FaArrowRight className="text-[10px] transition-transform duration-300 group-hover/btn:translate-x-1" />
                     </a>
                   </div>
@@ -392,23 +392,23 @@ export default function SignatureDishes({ dishes, onOpenMenu }) {
           <div className="space-y-2 max-w-xl">
             <div className="flex items-center justify-center md:justify-start gap-2 text-[10px] tracking-[0.25em] text-[#B99A65] uppercase font-medium">
               <span>✦</span>
-              <span>Complete Gastronomic Experience</span>
+              <span>Delicious Dining & Drinks</span>
             </div>
             <h4 className="font-heading text-2xl sm:text-3xl text-[#EAE3D7] uppercase tracking-wide">
-              Discover the Full 38-Course Seasonal Menu
+              Explore Our Complete Menu
             </h4>
             <p className="text-xs sm:text-sm text-[#776B5D] font-light leading-relaxed">
-              Explore our complete raw bar, robata skewers, curated cellar pairings, and artisanal desserts.
+              Browse our freshly prepared dishes, signature specialties, refreshing drinks, and desserts.
             </p>
           </div>
 
           <a
-            href="/menu"
+            href={menuUrl}
             onClick={onOpenMenu}
             className="group inline-flex items-center gap-3 bg-[#B99A65] text-[#111110] px-8 py-4 rounded-sm text-xs tracking-[0.25em] font-semibold uppercase hover:bg-[#c9aa73] transition-all duration-300 shadow-lg hover:shadow-[#B99A65]/20 active:scale-95 shrink-0"
           >
             <FaQrcode className="text-xs" />
-            <span>OPEN DIGITAL MENU</span>
+            <span>VIEW DIGITAL MENU</span>
             <FaArrowRight className="text-[10px] transition-transform duration-300 group-hover:translate-x-1" />
           </a>
         </div>

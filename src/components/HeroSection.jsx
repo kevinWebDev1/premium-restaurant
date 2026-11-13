@@ -10,6 +10,11 @@ import { MOTION, isReducedMotion } from "@/utils/motion";
 export default function HeroSection({ config, onOpenReservation, onOpenMenu }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const heroRef = useRef(null);
+
+  const headlineLine1 =
+    config?.headlineLine1 || config?.brandLockup?.top || config?.name || "NAMI";
+  const headlineLine2 =
+    config?.headlineLine2 || config?.categoryTagline || "CONTEMPORARY GASTRONOMY";
   const bgImageRef = useRef(null);
   const headerRef = useRef(null);
   const kickerRef = useRef(null);
@@ -165,14 +170,14 @@ export default function HeroSection({ config, onOpenReservation, onOpenMenu }) {
         className="relative z-20 w-full px-6 sm:px-10 lg:px-20 py-6 sm:py-8 flex items-center justify-between"
       >
         {/* Brand Emblem & Name */}
-        <a href="#" className="flex items-center gap-3.5 group">
-          <BrandEmblem size={42} className="transition-transform duration-700 group-hover:rotate-45" />
-          <div className="flex flex-col">
-            <span className="font-heading text-xl sm:text-2xl tracking-[0.28em] text-[#EAE3D7] font-medium leading-none">
-              {config.name}
+        <a href={config?.homeUrl || "/"} className="flex items-center gap-3.5 group">
+          <BrandEmblem size={42} className="transition-transform duration-700 group-hover:rotate-45 shrink-0" />
+          <div className="flex flex-col text-left">
+            <span className="font-heading text-xl sm:text-2xl tracking-[0.16em] text-[#EAE3D7] font-medium leading-none">
+              {config?.brandLockup?.top || config.name}
             </span>
-            <span className="text-[9px] tracking-[0.32em] text-[#B99A65] uppercase mt-1">
-              RESTAURANT
+            <span className="text-[9px] tracking-[0.3em] text-[#B99A65] uppercase mt-1">
+              {config?.brandLockup?.sub || "RESTAURANT"}
             </span>
           </div>
         </a>
@@ -195,7 +200,7 @@ export default function HeroSection({ config, onOpenReservation, onOpenMenu }) {
             onClick={onOpenReservation}
             className="bg-[#B99A65] text-[#111110] px-6 py-2.5 rounded-sm text-xs tracking-[0.25em] font-semibold uppercase hover:bg-[#c9aa73] transition-all duration-300 cursor-pointer shadow-md hover:shadow-[#B99A65]/20 active:scale-95"
           >
-            CONTACT
+            BOOK TABLE
           </button>
         </nav>
 
@@ -273,10 +278,10 @@ export default function HeroSection({ config, onOpenReservation, onOpenMenu }) {
           {/* Primary Editorial Headline: Cormorant Garamond with Line-by-Line Masked Reveal */}
           <h1 className="font-heading text-4xl sm:text-6xl lg:text-7xl xl:text-[4.75rem] font-normal tracking-[0.03em] text-[#EAE3D7] leading-[1.05] uppercase">
             <span className="block overflow-hidden py-1">
-              <span className="block hero-line-reveal">NAMI, CONTEMPORARY</span>
+              <span className="block hero-line-reveal">{headlineLine1}</span>
             </span>
             <span className="block overflow-hidden py-1">
-              <span className="block hero-line-reveal">GASTRONOMY</span>
+              <span className="block hero-line-reveal">{headlineLine2}</span>
             </span>
           </h1>
 
@@ -307,7 +312,7 @@ export default function HeroSection({ config, onOpenReservation, onOpenMenu }) {
 
             {/* Secondary Action Button: QR Menu Link */}
             <a
-              href="/menu"
+              href={config?.menuUrl || "/menu"}
               onClick={onOpenMenu}
               className="group border border-[#B99A65]/40 hover:border-[#B99A65] bg-[#111110]/50 hover:bg-[#24221F]/80 backdrop-blur-xs text-[#EAE3D7] hover:text-[#B99A65] px-7 py-4 rounded-sm text-xs tracking-[0.25em] font-medium uppercase transition-all duration-300 flex items-center justify-center gap-2.5"
             >

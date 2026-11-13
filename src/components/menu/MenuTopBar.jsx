@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import Link from "next/link";
 import { useCart } from "@/context/CartContext";
 import BrandEmblem from "@/components/BrandEmblem";
@@ -18,6 +18,31 @@ export default function MenuTopBar({
 }) {
   const { tableNumber, setIsTableModalOpen, restaurant } = useCart();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  // Two-line luxury brand lockup (Option 3): splits long names cleanly
+  const brandName = restaurant?.name || "NAMI";
+  const brandLockup = useMemo(() => {
+    if (restaurant?.brandLockup) {
+      return restaurant.brandLockup;
+    }
+    const cleaned = String(brandName).trim();
+    const words = cleaned.split(/\s+/);
+    if (words.length === 1) {
+      return { top: words[0], sub: "GASTRONOMY" };
+    }
+    if (words.length === 2) {
+      return { top: words[0], sub: words[1] };
+    }
+    // Smart split for names ending with compound suffixes like "BAKERY & CAFE" or "BAR & GRILL"
+    if (words.length >= 4 && words[words.length - 2] === "&") {
+      const sub = words.slice(-3).join(" ");
+      const top = words.slice(0, -3).join(" ");
+      return { top, sub };
+    }
+    const sub = words.slice(-1)[0];
+    const top = words.slice(0, -1).join(" ");
+    return { top, sub };
+  }, [brandName, restaurant?.brandLockup]);
 
   // Short category names for clean top bar wings
   const getShortName = (cat) => {
@@ -55,32 +80,40 @@ export default function MenuTopBar({
             1. MOBILE HEADER (< 768px): Exact Reference Layout
             [Logo NAMI]        [Menù —❖—]        [🔍 Search] [≡ Circle]
            ───────────────────────────────────────────────────────────── */}
-        <div className="flex md:hidden items-center justify-between px-4 h-16 w-full">
-          {/* Mobile Left: Brand Emblem + NAMI */}
-          <Link href="/" className="flex items-center gap-2 group shrink-0">
+        <div className="flex md:hidden relative items-center justify-between px-4 h-16 w-full">
+          {/* Mobile Left: Brand Emblem + 2-line Stacked Lockup (Option 3) */}
+          <Link
+            href={restaurant?.homeUrl || (restaurant?.slug ? `/${restaurant.slug}` : "/")}
+            className="flex items-center gap-2 group shrink-0 max-w-[135px] z-10"
+          >
             <BrandEmblem
-              size={28}
-              className="transition-transform duration-500 group-hover:rotate-45"
+              size={26}
+              className="transition-transform duration-500 group-hover:rotate-45 shrink-0"
             />
-            <span className="font-heading text-base tracking-[0.24em] text-[#EAE3D7] font-semibold">
-              {restaurant?.name || "NAMI"}
-            </span>
+            <div className="flex flex-col text-left min-w-0">
+              <span className="font-heading text-xs sm:text-sm tracking-[0.12em] text-[#EAE3D7] font-semibold leading-tight truncate">
+                {brandLockup.top}
+              </span>
+              <span className="text-[7.5px] tracking-[0.22em] text-[#B99A65] uppercase font-medium leading-none mt-0.5 truncate">
+                {brandLockup.sub}
+              </span>
+            </div>
           </Link>
 
-          {/* Mobile Center: Menù with decorative gold flourish */}
-          <div className="flex flex-col items-center justify-center">
-            <h1 className="font-heading text-2xl font-normal tracking-[0.14em] text-[#EAE3D7] leading-none">
+          {/* Mobile Center: TRUE 50% MATHEMATICAL VIEWPORT CENTER */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex flex-col items-center justify-center pointer-events-none">
+            <h1 className="font-heading text-xl font-normal tracking-[0.12em] text-[#EAE3D7] leading-none">
               Menù
             </h1>
-            <div className="flex items-center gap-1.5 mt-1 text-[#B99A65]">
-              <span className="w-4 h-[1px] bg-gradient-to-r from-transparent to-[#B99A65]/80" />
-              <span className="text-[8px] select-none leading-none">❖</span>
-              <span className="w-4 h-[1px] bg-gradient-to-l from-transparent to-[#B99A65]/80" />
+            <div className="flex items-center gap-1.5 mt-0.5 text-[#B99A65]">
+              <span className="w-3 h-[1px] bg-gradient-to-r from-transparent to-[#B99A65]/80" />
+              <span className="text-[7px] select-none leading-none">❖</span>
+              <span className="w-3 h-[1px] bg-gradient-to-l from-transparent to-[#B99A65]/80" />
             </div>
           </div>
 
           {/* Mobile Right: Search Icon + Circular Hamburger Button */}
-          <div className="flex items-center gap-2 shrink-0">
+          <div className="flex items-center gap-2 shrink-0 z-10">
             {/* Search Toggle Icon */}
             <button
               onClick={() => {
@@ -120,7 +153,7 @@ export default function MenuTopBar({
            ───────────────────────────────────────────────────────────── */}
         <div className="hidden md:flex relative items-center justify-between px-6 lg:px-10 h-20 max-w-7xl mx-auto w-full">
           {/* Left Wing Categories */}
-          <div className="flex items-center gap-6 lg:gap-8 text-xs tracking-[0.22em] uppercase font-medium">
+          <div className="flex items-center gap-4 lg:gap-8 text-xs tracking-[0.2em] uppercase font-medium">
             {leftCategories.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
@@ -139,26 +172,31 @@ export default function MenuTopBar({
             })}
           </div>
 
-          {/* Absolute True Center Brand Logo (Exactly at 50% viewport) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center">
+          {/* Absolute True Center Brand Logo (Option 3 Two-Line Lockup) */}
+          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
             <Link
-              href="/"
+              href={restaurant?.homeUrl || (restaurant?.slug ? `/${restaurant.slug}` : "/")}
               className="flex items-center gap-3 group shrink-0"
             >
               <BrandEmblem
-                size={34}
-                className="transition-transform duration-700 group-hover:rotate-45"
+                size={32}
+                className="transition-transform duration-700 group-hover:rotate-45 shrink-0"
               />
-              <span className="font-heading text-xl lg:text-2xl tracking-[0.28em] text-[#EAE3D7] font-semibold leading-none group-hover:text-[#B99A65] transition-colors">
-                {restaurant?.name || "NAMI"}
-              </span>
+              <div className="flex flex-col text-left">
+                <span className="font-heading text-base lg:text-lg tracking-[0.16em] text-[#EAE3D7] font-semibold leading-tight group-hover:text-[#B99A65] transition-colors whitespace-nowrap">
+                  {brandLockup.top}
+                </span>
+                <span className="text-[8.5px] tracking-[0.28em] text-[#B99A65] uppercase font-medium leading-none mt-0.5 whitespace-nowrap">
+                  {brandLockup.sub}
+                </span>
+              </div>
             </Link>
           </div>
 
           {/* Right Group: Right Wing Categories + Table Selector + Search */}
-          <div className="flex items-center gap-5 lg:gap-7">
+          <div className="flex items-center gap-4 lg:gap-7">
             {/* Right Wing Categories */}
-            <div className="flex items-center gap-5 lg:gap-7 text-xs tracking-[0.22em] uppercase font-medium">
+            <div className="flex items-center gap-4 lg:gap-7 text-xs tracking-[0.2em] uppercase font-medium">
               {rightCategories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
@@ -343,7 +381,7 @@ export default function MenuTopBar({
             {/* Drawer Footer */}
             <div className="pt-6 mt-6 border-t border-[#242622] space-y-3">
               <Link
-                href="/"
+                href={restaurant?.homeUrl || (restaurant?.slug ? `/${restaurant.slug}` : "/")}
                 className="w-full py-2.5 px-3 rounded-lg border border-[#242622] text-xs text-[#776B5D] hover:text-[#B99A65] hover:border-[#B99A65]/40 flex items-center justify-center gap-2 tracking-[0.18em] uppercase transition-colors"
               >
                 <span>←</span>

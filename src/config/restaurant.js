@@ -2,15 +2,20 @@ export const defaultRestaurant = {
   id: "nami-luxury",
   slug: "nami",
   name: "NAMI",
-  categoryTagline: "CONTEMPORARY GASTRONOMY",
-  headline: "NAMI, CONTEMPORARY GASTRONOMY",
+  brandLockup: { top: "NAMI", sub: "RESTAURANT" },
+  categoryTagline: "FINE DINE RESTAURANT",
+  headline: "NAMI, FINE DINE RESTAURANT",
+  headlineLine1: "NAMI",
+  headlineLine2: "FINE DINING EXPERIENCE",
   description:
-    "We draw inspiration from the diverse richness of coastal waters and native harvest, creating an authentic culinary journey of refined artistry.",
+    "Experience fine dining crafted with fresh coastal harvest, rich seasonal ingredients, and authentic wood-fired artistry.",
+  menuUrl: "/menu",
+  homeUrl: "/",
   
   hero: {
-    badge: "MICHELIN GUIDE SELECTION 2026",
-    primaryCtaText: "RESERVE",
-    secondaryCtaText: "EXPLORE MENU",
+    badge: "PREMIUM DINING EXPERIENCE",
+    primaryCtaText: "BOOK A TABLE",
+    secondaryCtaText: "VIEW MENU",
     image: "/images/hero-canvas-master-v3.jpg",
     alt: "Artisanal charred octopus with spiced puree, toasted corn and microgreens on dark plate",
   },
@@ -42,7 +47,7 @@ export const defaultRestaurant = {
 
   navLinks: [
     { label: "ABOUT", href: "#story" },
-    { label: "CREATIONS", href: "#creations" },
+    { label: "MENU PICKS", href: "#creations" },
     { label: "GALLERY", href: "#gallery" },
     { label: "QR MENU", href: "/menu" },
   ],
@@ -412,33 +417,181 @@ export function getRestaurantConfig(restaurantId) {
 
 export function getRestaurantByBrand(brandKey) {
   if (!brandKey) return defaultRestaurant;
-  const key = String(brandKey).toLowerCase().replace(/[^a-z]/g, "");
+  const rawKey = String(brandKey).trim().toLowerCase();
+  const key = rawKey.replace(/[^a-z0-9-]/g, "");
+
+  if (key === "nami" || key === "") {
+    return defaultRestaurant;
+  }
 
   if (key.includes("kavya")) {
+    const slug = "kavya";
     return {
       ...defaultRestaurant,
       id: "the-kavya-kitchen",
+      slug,
       name: "THE KAVYA KITCHEN",
-      categoryTagline: "CONTEMPORARY INDIAN GASTRONOMY",
-      headline: "THE KAVYA KITCHEN, CONTEMPORARY GASTRONOMY",
+      brandLockup: { top: "THE KAVYA", sub: "KITCHEN" },
+      categoryTagline: "FINE DINE RESTAURANT",
+      headline: "THE KAVYA KITCHEN, FINE DINE RESTAURANT",
+      headlineLine1: "THE KAVYA KITCHEN",
+      headlineLine2: "FINE DINE RESTAURANT",
       description:
-        "Authentic North Indian culinary heritage crafted with fresh ingredients, homestyle spices, and artisanal culinary care.",
+        "Authentic North Indian dishes crafted with fresh spices, rich gravies, and the true homestyle taste of Lucknow.",
+      hero: {
+        ...defaultRestaurant.hero,
+        badge: "AUTHENTIC NORTH INDIAN TASTE",
+        primaryCtaText: "BOOK A TABLE",
+        secondaryCtaText: "VIEW MENU",
+      },
+      menuUrl: `/${slug}/menu`,
+      homeUrl: `/${slug}`,
+      navLinks: [
+        { label: "ABOUT", href: "#story" },
+        { label: "SIGNATURE DISHES", href: "#creations" },
+        { label: "GALLERY", href: "#gallery" },
+        { label: "QR MENU", href: `/${slug}/menu` },
+      ],
+      contact: {
+        ...defaultRestaurant.contact,
+        phone: "+91 77839 37005",
+        displayPhone: "+91 77839 37005",
+        whatsappNumber: "917783937005",
+        address: "Kavya Grand, Hazratganj, Lucknow, UP",
+        city: "Lucknow, UP",
+      },
     };
   }
 
   if (key.includes("oven") || key.includes("grain")) {
+    const slug = "oven-grains";
     return {
       ...defaultRestaurant,
       id: "oven-grains",
+      slug,
       name: "OVEN GRAINS",
       categoryTagline: "ARTISANAL BAKERY & CAFE",
       headline: "OVEN GRAINS, ARTISANAL BAKERY & CAFE",
       description:
         "Fresh artisanal bakes, signature sourdough breads, custom patisserie, and freshly roasted coffee.",
+      menuUrl: `/${slug}/menu`,
+      homeUrl: `/${slug}`,
+      navLinks: [
+        { label: "ABOUT", href: "#story" },
+        { label: "CREATIONS", href: "#creations" },
+        { label: "GALLERY", href: "#gallery" },
+        { label: "QR MENU", href: `/${slug}/menu` },
+      ],
     };
   }
 
-  return defaultRestaurant;
+  if (key.includes("lebon") || key.includes("bon") || key.includes("le-bon")) {
+    const slug = "le-bon";
+    return {
+      ...defaultRestaurant,
+      id: "le-bon-bakery-cafe",
+      slug,
+      name: "LE BON BAKERY & CAFE",
+      brandLockup: { top: "LE BON", sub: "BAKERY & CAFE" },
+      categoryTagline: "BAKERY & CAFE",
+      headline: "LE BON, BAKERY & CAFE",
+      headlineLine1: "LE BON",
+      headlineLine2: "BAKERY & CAFE",
+      description:
+        "Freshly baked celebration cakes, flaky pastries, warm breads, and freshly brewed coffee made every single day in Bistupur.",
+      hero: {
+        ...defaultRestaurant.hero,
+        badge: "FRESH BAKES & SPECIALTY COFFEE",
+        primaryCtaText: "ORDER ON WHATSAPP",
+        secondaryCtaText: "VIEW MENU",
+      },
+      menuUrl: `/${slug}/menu`,
+      homeUrl: `/${slug}`,
+      navLinks: [
+        { label: "ABOUT", href: "#story" },
+        { label: "FRESH BAKES", href: "#creations" },
+        { label: "GALLERY", href: "#gallery" },
+        { label: "QR MENU", href: `/${slug}/menu` },
+      ],
+      contact: {
+        ...defaultRestaurant.contact,
+        phone: "+91 98351 12345",
+        displayPhone: "+91 98351 12345",
+        whatsappNumber: "919835112345",
+        address: "Jyoti apartment, 2, N Rd, Contractors Area, Bistupur, Jamshedpur, Jharkhand 831001",
+        city: "Bistupur, Jamshedpur",
+        googleMapsUrl: "https://share.google/YtsvmE1GunVx3V1LI",
+      },
+      hours: {
+        schedule: "Mon - Sun: 08:00 - 22:30",
+        kitchen: "08:30 – 22:00",
+        bar: "08:00 – 22:30",
+      },
+      story: {
+        ...defaultRestaurant.story,
+        kicker: "01 / OUR PASSION",
+        heading: "FRESH DOUGH, RICH CHOCOLATE & EVERYDAY WARMTH.",
+        paragraphs: [
+          "At Le Bon, every morning starts with the warm aroma of fresh-baked celebration cakes, buttery pastries, and rich coffee beans.",
+          "From custom celebration cakes to savory puffs and warm breads, everything is baked fresh daily in Bistupur with pure, honest ingredients."
+        ],
+        quote: "“Good baking brings people together. We make every item with love, patience, and care.”",
+        author: "LE BON MASTER BAKER",
+        image: defaultRestaurant.story.image,
+        imageAlt: "Master patissier delicately garnishing an artisanal celebration cake",
+        pillars: [
+          {
+            roman: "I",
+            title: "SLOW FERMENTATION",
+            text: "Aged sourdough starters for rich flavor and light, airy crusts."
+          },
+          {
+            roman: "II",
+            title: "PURE CHOCOLATE",
+            text: "Rich, authentic cocoa for our signature cakes and pastries."
+          },
+          {
+            roman: "III",
+            title: "BAKED FRESH DAILY",
+            text: "Prepared fresh every morning in Bistupur with zero artificial shortcuts."
+          }
+        ]
+      },
+    };
+  }
+
+  // Dynamic automatic fallback for any arbitrary prospect slug
+  const formattedName = key
+    .split("-")
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+
+  const words = formattedName.toUpperCase().split(/\s+/);
+  const brandLockup =
+    words.length === 1
+      ? { top: words[0], sub: "GASTRONOMY" }
+      : words.length === 2
+      ? { top: words[0], sub: words[1] }
+      : { top: words.slice(0, -1).join(" "), sub: words.slice(-1)[0] };
+
+  return {
+    ...defaultRestaurant,
+    id: key,
+    slug: key,
+    name: formattedName.toUpperCase(),
+    brandLockup,
+    headline: `${formattedName.toUpperCase()}, CONTEMPORARY GASTRONOMY`,
+    headlineLine1: formattedName.toUpperCase(),
+    headlineLine2: "CONTEMPORARY GASTRONOMY",
+    menuUrl: `/${key}/menu`,
+    homeUrl: `/${key}`,
+    navLinks: [
+      { label: "ABOUT", href: "#story" },
+      { label: "CREATIONS", href: "#creations" },
+      { label: "GALLERY", href: "#gallery" },
+      { label: "QR MENU", href: `/${key}/menu` },
+    ],
+  };
 }
 
 export function getAllMenuItems(restaurant = defaultRestaurant) {

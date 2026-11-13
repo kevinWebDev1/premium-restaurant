@@ -256,7 +256,7 @@ export default function CulinaryStory({ story }) {
           ref={pillarsRef}
           className="mt-20 sm:mt-28 lg:mt-36 pt-12 border-t border-[#24221F] grid grid-cols-1 md:grid-cols-3 gap-10 lg:gap-14"
         >
-          {story.pillars.map((pillar) => (
+          {(story?.pillars || []).map((pillar) => (
             <div key={pillar.roman} className="space-y-3 group">
               <span className="font-heading text-xl sm:text-2xl text-[#B99A65] font-normal tracking-wider block transition-transform group-hover:translate-x-1 duration-300">
                 {pillar.roman}
