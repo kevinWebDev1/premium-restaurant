@@ -410,6 +410,37 @@ export function getRestaurantConfig(restaurantId) {
   return defaultRestaurant;
 }
 
+export function getRestaurantByBrand(brandKey) {
+  if (!brandKey) return defaultRestaurant;
+  const key = String(brandKey).toLowerCase().replace(/[^a-z]/g, "");
+
+  if (key.includes("kavya")) {
+    return {
+      ...defaultRestaurant,
+      id: "the-kavya-kitchen",
+      name: "THE KAVYA KITCHEN",
+      categoryTagline: "CONTEMPORARY INDIAN GASTRONOMY",
+      headline: "THE KAVYA KITCHEN, CONTEMPORARY GASTRONOMY",
+      description:
+        "Authentic North Indian culinary heritage crafted with fresh ingredients, homestyle spices, and artisanal culinary care.",
+    };
+  }
+
+  if (key.includes("oven") || key.includes("grain")) {
+    return {
+      ...defaultRestaurant,
+      id: "oven-grains",
+      name: "OVEN GRAINS",
+      categoryTagline: "ARTISANAL BAKERY & CAFE",
+      headline: "OVEN GRAINS, ARTISANAL BAKERY & CAFE",
+      description:
+        "Fresh artisanal bakes, signature sourdough breads, custom patisserie, and freshly roasted coffee.",
+    };
+  }
+
+  return defaultRestaurant;
+}
+
 export function getAllMenuItems(restaurant = defaultRestaurant) {
   const items = [];
   (restaurant.menuCategories || []).forEach((cat) => {

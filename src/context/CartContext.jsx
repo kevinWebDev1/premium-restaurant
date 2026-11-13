@@ -1,11 +1,12 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useMemo, useCallback } from "react";
-import { defaultRestaurant, getAllMenuItems } from "@/config/restaurant";
+import { defaultRestaurant, getAllMenuItems, getRestaurantByBrand } from "@/config/restaurant";
 
 const CartContext = createContext(null);
 
-export function CartProvider({ children, restaurant = defaultRestaurant }) {
+export function CartProvider({ children, restaurant: initialRestaurant = defaultRestaurant }) {
+  const [activeRestaurant, setActiveRestaurant] = useState(initialRestaurant);
   const [tableNumber, setTableNumberState] = useState(null);
   const [cart, setCart] = useState([]);
   const [isInitialized, setIsInitialized] = useState(false);
@@ -15,22 +16,30 @@ export function CartProvider({ children, restaurant = defaultRestaurant }) {
   // Storage key formula: nami_cart_{restaurantId}_table_{tableNumber || 'counter'}
   const getStorageKey = useCallback(
     (tbl) => {
-      const restId = restaurant?.id || "default";
+      const restId = activeRestaurant?.id || "default";
       const tblKey = tbl ? String(tbl).trim().toLowerCase() : "counter";
       return `nami_cart_${restId}_table_${tblKey}`;
     },
-    [restaurant?.id]
+    [activeRestaurant?.id]
   );
 
-  // 1. Initial Table Parameter & Cart Hydration
+  // 1. Initial Table & Brand Parameter & Cart Hydration
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // Read ?table=XX from URL query string
+    // Read ?table=XX and ?brand=XX from URL query string
     const searchParams = new URLSearchParams(window.location.search);
     const tableParam = searchParams.get("table");
-    const activeTable = tableParam ? tableParam.trim() : null;
+    const brandParam =
+      searchParams.get("brand") ||
+      searchParams.get("restaurant") ||
+      searchParams.get("name");
 
+    if (brandParam) {
+      setActiveRestaurant(getRestaurantByBrand(brandParam));
+    }
+
+    const activeTable = tableParam ? tableParam.trim() : null;
     setTableNumberState(activeTable);
 
     // Load initial cart for this table
@@ -141,22 +150,22 @@ export function CartProvider({ children, restaurant = defaultRestaurant }) {
   // 5. Availability Re-validation
   // Cross-checks the current cart against the master menu to detect items that became unavailable
   const unavailableCartItems = useMemo(() => {
-    const allMenu = getAllMenuItems(restaurant);
+    const allMenu = getAllMenuItems(activeRestaurant);
     const menuMap = new Map(allMenu.map((m) => [m.id, m]));
 
     return cart.filter((item) => {
       const liveItem = menuMap.get(item.id);
       return !liveItem || liveItem.available === false;
     });
-  }, [cart, restaurant]);
+  }, [cart, activeRestaurant]);
 
   const removeUnavailableItems = useCallback(() => {
-    const allMenu = getAllMenuItems(restaurant);
+    const allMenu = getAllMenuItems(activeRestaurant);
     const availableIds = new Set(
       allMenu.filter((m) => m.available !== false).map((m) => m.id)
     );
     setCart((prev) => prev.filter((item) => availableIds.has(item.id)));
-  }, [restaurant]);
+  }, [activeRestaurant]);
 
   // 6. Computed Totals
   const totalItems = useMemo(
@@ -170,7 +179,8 @@ export function CartProvider({ children, restaurant = defaultRestaurant }) {
   );
 
   const value = {
-    restaurant,
+    restaurant: activeRestaurant,
+    setActiveRestaurant,
     tableNumber,
     setTableNumber,
     cart,

@@ -1,13 +1,14 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import HeroSection from "@/components/HeroSection";
 import CulinaryStory from "@/components/CulinaryStory";
 import SignatureDishes from "@/components/SignatureDishes";
-import { defaultRestaurant } from "@/config/restaurant";
+import { defaultRestaurant, getRestaurantByBrand } from "@/config/restaurant";
 import { FaXmark, FaCalendarCheck, FaPhone, FaWhatsapp, FaChevronDown } from "react-icons/fa6";
 
 export default function HomePage() {
+  const [restaurantConfig, setRestaurantConfig] = useState(defaultRestaurant);
   const [reservationOpen, setReservationOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -17,19 +18,31 @@ export default function HomePage() {
     guests: "2",
   });
 
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const searchParams = new URLSearchParams(window.location.search);
+    const brandParam =
+      searchParams.get("brand") ||
+      searchParams.get("restaurant") ||
+      searchParams.get("name");
+    if (brandParam) {
+      setRestaurantConfig(getRestaurantByBrand(brandParam));
+    }
+  }, []);
+
   const handleWhatsAppReservation = (e) => {
     e.preventDefault();
     const text = encodeURIComponent(
-      `Hello ${defaultRestaurant.name}, I would like to request a table reservation for ${formData.guests} guests on ${formData.date} at ${formData.time}.\nName: ${formData.name}\nPhone: ${formData.phone}`
+      `Hello ${restaurantConfig.name}, I would like to request a table reservation for ${formData.guests} guests on ${formData.date} at ${formData.time}.\nName: ${formData.name}\nPhone: ${formData.phone}`
     );
-    window.open(`https://wa.me/${defaultRestaurant.contact.whatsappNumber}?text=${text}`, "_blank");
+    window.open(`https://wa.me/${restaurantConfig.contact.whatsappNumber}?text=${text}`, "_blank");
   };
 
   return (
     <main className="min-h-screen bg-[#111110] text-[#EAE3D7]">
       {/* 1. HERO SECTION */}
       <HeroSection
-        config={defaultRestaurant}
+        config={restaurantConfig}
         onOpenReservation={() => setReservationOpen(true)}
         onOpenMenu={() => {
           // Future menu router

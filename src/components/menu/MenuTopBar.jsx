@@ -16,7 +16,7 @@ export default function MenuTopBar({
   searchQuery,
   setSearchQuery,
 }) {
-  const { tableNumber, setIsTableModalOpen } = useCart();
+  const { tableNumber, setIsTableModalOpen, restaurant } = useCart();
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   // Short category names for clean top bar wings
@@ -63,7 +63,7 @@ export default function MenuTopBar({
               className="transition-transform duration-500 group-hover:rotate-45"
             />
             <span className="font-heading text-base tracking-[0.24em] text-[#EAE3D7] font-semibold">
-              NAMI
+              {restaurant?.name || "NAMI"}
             </span>
           </Link>
 
@@ -150,7 +150,7 @@ export default function MenuTopBar({
                 className="transition-transform duration-700 group-hover:rotate-45"
               />
               <span className="font-heading text-xl lg:text-2xl tracking-[0.28em] text-[#EAE3D7] font-semibold leading-none group-hover:text-[#B99A65] transition-colors">
-                NAMI
+                {restaurant?.name || "NAMI"}
               </span>
             </Link>
           </div>
@@ -265,7 +265,7 @@ export default function MenuTopBar({
                 <div className="flex items-center gap-2.5">
                   <BrandEmblem size={26} />
                   <span className="font-heading text-lg tracking-[0.24em] text-[#EAE3D7] font-semibold">
-                    NAMI
+                    {restaurant?.name || "NAMI"}
                   </span>
                 </div>
 
@@ -351,7 +351,7 @@ export default function MenuTopBar({
               </Link>
 
               <p className="text-[9px] text-[#555047] text-center tracking-wider">
-                NAMI Fine Dining · Digital Order System
+                {restaurant?.name || "NAMI"} Fine Dining · Digital Order System
               </p>
             </div>
           </aside>
