@@ -46,6 +46,7 @@ export default function MenuTopBar({
 
   // Short category names for clean top bar wings
   const getShortName = (cat) => {
+    if (cat.shortName) return cat.shortName.toUpperCase();
     switch (cat.id) {
       case "raw-bar":
         return "RAW BAR";
@@ -57,8 +58,21 @@ export default function MenuTopBar({
         return "DESSERTS";
       case "cellar-drinks":
         return "CELLAR";
-      default:
-        return cat.name?.toUpperCase() || "";
+      case "specialty-coffees":
+        return "COFFEES";
+      case "artisanal-pizzas":
+        return "PIZZAS & PASTAS";
+      case "cafe-burgers-bites":
+        return "BITES";
+      case "shakes-beverages":
+        return "SHAKES";
+      default: {
+        const name = cat.name || "";
+        if (name.length > 16 && name.includes("&")) {
+          return name.split("&")[0].trim().toUpperCase();
+        }
+        return name.toUpperCase();
+      }
     }
   };
 
@@ -148,19 +162,19 @@ export default function MenuTopBar({
         </div>
 
         {/* ─────────────────────────────────────────────────────────────
-            2. DESKTOP HEADER (>= 768px): La Lumière Centered Luxury
-            Left Wing: [RAW BAR] [HEARTH] | True Center: [❖ NAMI] | Right Wing: [SIDES] [DESSERTS] [CELLAR] | [Table 07] [🔍]
+            2. DESKTOP HEADER (>= 768px): La Lumière Centered Luxury (In-Flow, Zero-Collision)
+            Left Wing: [COFFEES] [PIZZAS & PASTAS] | Center: [❖ STAR BEANS] | Right Wing: [BITES] [SHAKES] | [Table] [🔍]
            ───────────────────────────────────────────────────────────── */}
-        <div className="hidden md:flex relative items-center justify-between px-6 lg:px-10 h-20 max-w-7xl mx-auto w-full">
+        <div className="hidden md:flex items-center justify-between px-4 lg:px-8 h-20 max-w-7xl mx-auto w-full gap-2 lg:gap-4">
           {/* Left Wing Categories */}
-          <div className="flex items-center gap-4 lg:gap-8 text-xs tracking-[0.2em] uppercase font-medium">
+          <div className="flex-1 flex items-center justify-end gap-3 lg:gap-6 text-xs tracking-[0.16em] uppercase font-medium min-w-0">
             {leftCategories.map((cat) => {
               const isActive = activeCategory === cat.id;
               return (
                 <button
                   key={cat.id}
                   onClick={() => handleCategoryClick(cat.id)}
-                  className={`relative py-1.5 transition-colors select-none ${
+                  className={`relative py-1.5 transition-colors select-none whitespace-nowrap ${
                     isActive
                       ? "text-[#B99A65] font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-[#B99A65]"
                       : "text-[#776B5D] hover:text-[#EAE3D7]"
@@ -172,21 +186,21 @@ export default function MenuTopBar({
             })}
           </div>
 
-          {/* Absolute True Center Brand Logo (Option 3 Two-Line Lockup) */}
-          <div className="absolute left-1/2 -translate-x-1/2 flex items-center justify-center pointer-events-auto">
+          {/* Center Brand Logo (In normal flow with guaranteed padding - no overlap ever) */}
+          <div className="shrink-0 px-3 lg:px-6 flex items-center justify-center">
             <Link
               href={restaurant?.homeUrl || (restaurant?.slug ? `/${restaurant.slug}` : "/")}
-              className="flex items-center gap-3 group shrink-0"
+              className="flex items-center gap-2.5 lg:gap-3 group shrink-0"
             >
               <BrandEmblem
-                size={32}
+                size={30}
                 className="transition-transform duration-700 group-hover:rotate-45 shrink-0"
               />
               <div className="flex flex-col text-left">
-                <span className="font-heading text-base lg:text-lg tracking-[0.16em] text-[#EAE3D7] font-semibold leading-tight group-hover:text-[#B99A65] transition-colors whitespace-nowrap">
+                <span className="font-heading text-sm lg:text-base tracking-[0.16em] text-[#EAE3D7] font-semibold leading-tight group-hover:text-[#B99A65] transition-colors whitespace-nowrap">
                   {brandLockup.top}
                 </span>
-                <span className="text-[8.5px] tracking-[0.28em] text-[#B99A65] uppercase font-medium leading-none mt-0.5 whitespace-nowrap">
+                <span className="text-[8px] lg:text-[8.5px] tracking-[0.28em] text-[#B99A65] uppercase font-medium leading-none mt-0.5 whitespace-nowrap">
                   {brandLockup.sub}
                 </span>
               </div>
@@ -194,16 +208,16 @@ export default function MenuTopBar({
           </div>
 
           {/* Right Group: Right Wing Categories + Table Selector + Search */}
-          <div className="flex items-center gap-4 lg:gap-7">
+          <div className="flex-1 flex items-center justify-start gap-3 lg:gap-5 min-w-0">
             {/* Right Wing Categories */}
-            <div className="flex items-center gap-4 lg:gap-7 text-xs tracking-[0.2em] uppercase font-medium">
+            <div className="flex items-center gap-3 lg:gap-6 text-xs tracking-[0.16em] uppercase font-medium min-w-0">
               {rightCategories.map((cat) => {
                 const isActive = activeCategory === cat.id;
                 return (
                   <button
                     key={cat.id}
                     onClick={() => handleCategoryClick(cat.id)}
-                    className={`relative py-1.5 transition-colors select-none ${
+                    className={`relative py-1.5 transition-colors select-none whitespace-nowrap ${
                       isActive
                         ? "text-[#B99A65] font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-[1.5px] after:bg-[#B99A65]"
                         : "text-[#776B5D] hover:text-[#EAE3D7]"
@@ -216,12 +230,12 @@ export default function MenuTopBar({
             </div>
 
             {/* Divider */}
-            <span className="h-4 w-[1px] bg-[#242622]" />
+            <span className="h-4 w-[1px] bg-[#242622] shrink-0" />
 
             {/* Table Selector Pill */}
             <button
               onClick={() => setIsTableModalOpen(true)}
-              className={`flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs transition-all border ${
+              className={`flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs transition-all border shrink-0 ${
                 tableNumber
                   ? "bg-[#B99A65]/15 border-[#B99A65]/50 text-[#B99A65] hover:bg-[#B99A65]/25 font-semibold"
                   : "bg-[#181917] border-[#242622] text-[#776B5D] hover:border-[#B99A65]/40 hover:text-[#EAE3D7]"
@@ -240,7 +254,7 @@ export default function MenuTopBar({
                 setIsSearchOpen((prev) => !prev);
                 if (isSearchOpen) setSearchQuery("");
               }}
-              className={`p-2.5 rounded-full transition-colors border ${
+              className={`p-2 rounded-full transition-colors border shrink-0 ${
                 isSearchOpen
                   ? "bg-[#B99A65] text-[#111110] border-[#B99A65]"
                   : "bg-[#181917] border-[#242622] text-[#776B5D] hover:text-[#EAE3D7] hover:border-[#B99A65]/40"
