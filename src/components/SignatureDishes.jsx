@@ -365,7 +365,7 @@ export default function SignatureDishes({ dishes, onOpenMenu, menuUrl = "/menu" 
                         Course Investment
                       </span>
                       <span className="font-heading text-2xl sm:text-3xl text-[#B99A65] tracking-wide font-normal">
-                        ${dish.price}
+                        {dish.currency === "INR" ? `₹${dish.price}` : `$${dish.price}`}
                       </span>
                     </div>
 

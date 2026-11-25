@@ -560,6 +560,404 @@ export function getRestaurantByBrand(brandKey) {
     };
   }
 
+  if (
+    key.includes("star") ||
+    key.includes("beans") ||
+    key.includes("starbeans") ||
+    key.includes("star-beans")
+  ) {
+    const slug = "star-beans";
+    return {
+      ...defaultRestaurant,
+      id: "the-star-beans",
+      slug,
+      name: "THE STAR BEANS",
+      brandLockup: { top: "STAR BEANS", sub: "CAFE & BISTRO" },
+      categoryTagline: "SPECIALTY COFFEE & ARTISANAL BISTRO",
+      headline: "THE STAR BEANS, ARTISANAL CAFE & BISTRO",
+      headlineLine1: "THE STAR BEANS",
+      headlineLine2: "ARTISANAL CAFE & BISTRO",
+      currency: "INR",
+      description:
+        "Freshly brewed specialty coffees, hazelnut frappes, hand-tossed gourmet pizzas, creamy pastas, and delicious cafe bites in Birsanagar, Jamshedpur.",
+      menuUrl: `/${slug}/menu`,
+      homeUrl: `/${slug}`,
+      hero: {
+        badge: "SPECIALTY COFFEE & ARTISANAL BISTRO",
+        primaryCtaText: "ORDER ON WHATSAPP",
+        secondaryCtaText: "EXPLORE MENU",
+        image: "/images/star-beans/hero-cafe.jpg",
+        alt: "Cozy warm ambiance of The Star Beans cafe in Birsanagar with specialty coffee counter and warm lighting",
+      },
+      theme: {
+        obsidian: "#120f0d",
+        charcoal: "#231c18",
+        ivory: "#f5efe6",
+        gold: "#d4a373",
+        taupe: "#8c7a6b",
+        fontHeading: "Cormorant Garamond, serif",
+        fontBody: "Plus Jakarta Sans, sans-serif",
+      },
+      contact: {
+        phone: "+91 77177 07088",
+        displayPhone: "+91 77177 07088",
+        whatsappNumber: "917717707088",
+        address: "1st Floor, Opp. Chinmaya Vidyalaya, Birsanagar, Jamshedpur, Jharkhand 831019",
+        city: "Birsanagar, Jamshedpur",
+        googleMapsUrl: "https://maps.app.goo.gl/aemMMKyzWeKTZvVs5",
+      },
+      hours: {
+        schedule: "Mon - Sun: 10:30 AM - 10:30 PM",
+        kitchen: "11:00 AM – 10:00 PM",
+        bar: "10:30 AM – 10:30 PM",
+      },
+      navLinks: [
+        { label: "ABOUT", href: "#story" },
+        { label: "SIGNATURES", href: "#creations" },
+        { label: "LOCATION", href: "#location" },
+        { label: "QR MENU", href: `/${slug}/menu` },
+      ],
+      story: {
+        kicker: "01 / COFFEE & CONVERSATION",
+        heading: "CRAFTING MEMORIES OVER RICH BREWS & ARTISANAL FLAVORS.",
+        paragraphs: [
+          "At The Star Beans, we believe that great coffee and comforting food create the best memories. Nestled near Chinmaya Vidyalaya in Birsanagar, our cafe is a vibrant sanctuary designed for relaxed conversations, friendly meetups, and unforgettable flavors.",
+          "From slow-pulled espresso shots and thick hazelnut frappes to stone-baked farmhouse pizzas and sizzling cafe bites, every dish is prepared fresh with premium ingredients and genuine hospitality."
+        ],
+        quote: "“Great coffee is an art, and good company is a blessing. We created Star Beans to celebrate both.”",
+        author: "AMIT SINGH — THE STAR BEANS",
+        image: "/images/star-beans/story-barista.jpg",
+        imageAlt: "Skilled barista hand-pulling a rich espresso shot at The Star Beans",
+        pillars: [
+          {
+            roman: "I",
+            title: "ARTISANAL ROASTS",
+            text: "Carefully roasted Arabica and Robusta blends ground fresh for each cup."
+          },
+          {
+            roman: "II",
+            title: "HAND-TOSSED CRUSTS",
+            text: "Freshly proofed pizza dough topped with gourmet sauces and melted mozzarella."
+          },
+          {
+            roman: "III",
+            title: "COZY AMBIANCE",
+            text: "Warm cafe lighting, comfortable seating, and a welcoming community hub in Birsanagar."
+          }
+        ]
+      },
+      signatureDishes: [
+        {
+          id: "sb-sig-01",
+          number: "01",
+          badge: "CAFE FAVORITE",
+          name: "HAZELNUT CRUNCH FRAPPE",
+          subtitle: "SIGNATURE COLD BREW & ROASTED HAZELNUT",
+          description: "Double espresso blended with chilled milk, roasted hazelnut syrup, rich dark chocolate drizzle, and topped with velvety whipped cream.",
+          price: 180,
+          currency: "INR",
+          image: "/images/star-beans/dish-cold-coffee.jpg",
+          imageAlt: "Chilled hazelnut cold coffee frappe with whipped cream and chocolate drizzle",
+          tags: ["Cold Brew", "Barista Special"]
+        },
+        {
+          id: "sb-sig-02",
+          number: "02",
+          badge: "STONE-BAKED OVEN",
+          name: "RUSTIC FARMHOUSE PIZZA",
+          subtitle: "GOURMET 10-INCH HAND-TOSSED CRUST",
+          description: "Crispy hand-stretched crust layered with San Marzano herb sauce, stringy mozzarella, grilled bell peppers, sweet corn, black olives, and fresh basil.",
+          price: 280,
+          currency: "INR",
+          image: "/images/star-beans/dish-pizza.jpg",
+          imageAlt: "Crispy hand-tossed artisan pizza with melted cheese and fresh vegetable toppings",
+          tags: ["Stone-Baked", "100% Vegetarian"]
+        },
+        {
+          id: "sb-sig-03",
+          number: "03",
+          badge: "CHEF'S SPECIAL",
+          name: "TRUFFLE BUTTER PENNE ALFREDO",
+          subtitle: "RICH PARMESAN & HERB PENNE",
+          description: "Al dente penne simmered in a luscious Parmesan cream sauce with roasted garlic, cracked black pepper, sautéed mushrooms, and warm garlic herb bread.",
+          price: 240,
+          currency: "INR",
+          image: "/images/star-beans/dish-pasta.jpg",
+          imageAlt: "Creamy penne alfredo pasta with herbs and shaved parmesan",
+          tags: ["Rich Creamy", "House Specialty"]
+        }
+      ],
+      menuCategories: [
+        {
+          id: "specialty-coffees",
+          name: "SPECIALTY COFFEES & FRAPPES",
+          subtitle: "Handcrafted cold coffees, iced brews & barista roasts",
+          items: [
+            {
+              id: "sb-item-01",
+              name: "HAZELNUT CRUNCH FRAPPE",
+              subtitle: "ROASTED HAZELNUT & DOUBLE ESPRESSO",
+              description: "Chilled double espresso blended with creamy milk, hazelnut syrup, dark chocolate drizzle, and topped with velvety whipped cream.",
+              price: 180,
+              currency: "INR",
+              image: "/images/star-beans/dish-cold-coffee.jpg",
+              imageAlt: "Hazelnut cold coffee frappe",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-02",
+              name: "CLASSIC IRISH COLD COFFEE",
+              subtitle: "RICH CHILLED ESPRESSO",
+              description: "Bold espresso blended with thick milk and aromatic non-alcoholic Irish cream notes, served iced cold.",
+              price: 160,
+              currency: "INR",
+              image: "/images/star-beans/dish-cold-coffee.jpg",
+              imageAlt: "Classic Irish cold coffee",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-03",
+              name: "ICED CARAMEL MACCHIATO",
+              subtitle: "VANILLA & CARAMEL DRIZZLE",
+              description: "Layered chilled milk with vanilla syrup, topped with bold espresso float and rich golden caramel drizzle.",
+              price: 170,
+              currency: "INR",
+              image: "/images/star-beans/dish-cold-coffee.jpg",
+              imageAlt: "Iced caramel macchiato",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-04",
+              name: "SIGNATURE CAPPUCCINO",
+              subtitle: "FRESH HOT ESPRESSO & FOAM",
+              description: "Freshly pulled espresso with velvety steamed milk and thick micro-foam dusted with cinnamon chocolate powder.",
+              price: 130,
+              currency: "INR",
+              image: "/images/star-beans/dish-cold-coffee.jpg",
+              imageAlt: "Hot cappuccino with latte art",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            }
+          ]
+        },
+        {
+          id: "artisanal-pizzas",
+          name: "GOURMET PIZZAS & PASTAS",
+          subtitle: "Stone-baked hand-tossed pizzas & authentic Italian pasta",
+          items: [
+            {
+              id: "sb-item-05",
+              name: "RUSTIC FARMHOUSE PIZZA",
+              subtitle: "10-INCH HAND-TOSSED CRUST",
+              description: "San Marzano tomato herb sauce, melted mozzarella, bell peppers, golden sweet corn, sliced black olives, and fresh basil.",
+              price: 280,
+              currency: "INR",
+              image: "/images/star-beans/dish-pizza.jpg",
+              imageAlt: "Farmhouse gourmet pizza",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-06",
+              name: "SMOKY PANEER TIKKA PIZZA",
+              subtitle: "TANDOORI SPICES & FRESH CORIANDER",
+              description: "Clay-oven spiced paneer chunks, charred onions, capsicum, mozzarella cheese, and mint mayo swirl on crispy crust.",
+              price: 310,
+              currency: "INR",
+              image: "/images/star-beans/dish-pizza.jpg",
+              imageAlt: "Spicy paneer tikka pizza",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-07",
+              name: "CLASSIC MARGHERITA",
+              subtitle: "SAN MARZANO & FRESH MOZZARELLA",
+              description: "Pure Italian tomato sauce, generous melted mozzarella cheese, extra virgin olive oil, and fragrant sweet basil leaves.",
+              price: 240,
+              currency: "INR",
+              image: "/images/star-beans/dish-pizza.jpg",
+              imageAlt: "Classic Margherita pizza",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-08",
+              name: "TRUFFLE BUTTER PENNE ALFREDO",
+              subtitle: "CREAMY WHITE SAUCE & MUSHROOMS",
+              description: "Al dente penne pasta coated in rich garlic Parmesan cream sauce, sautéed button mushrooms, and crispy herb bread.",
+              price: 240,
+              currency: "INR",
+              image: "/images/star-beans/dish-pasta.jpg",
+              imageAlt: "Penne alfredo pasta",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-09",
+              name: "FIERY ARRABIATA PENNE",
+              subtitle: "SPICY TOMATO & FRESH BASIL",
+              description: "Penne pasta tossed in spicy slow-cooked tomato sauce with garlic, chili flakes, Italian herbs, and black olives.",
+              price: 220,
+              currency: "INR",
+              image: "/images/star-beans/dish-pasta.jpg",
+              imageAlt: "Arrabiata pasta",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            }
+          ]
+        },
+        {
+          id: "cafe-burgers-bites",
+          name: "BURGERS, WRAPS & BITES",
+          subtitle: "Handcrafted gourmet burgers, cheesy nachos & crispy snacks",
+          items: [
+            {
+              id: "sb-item-10",
+              name: "CRISPY PANEER DELUXE BURGER",
+              subtitle: "TOASTED BRIOCHE & CHIPOTLE SPREAD",
+              description: "Golden panko-crusted spiced paneer patty, crisp iceberg lettuce, sliced tomatoes, caramelized onions, and house chipotle dressing.",
+              price: 160,
+              currency: "INR",
+              image: "/images/star-beans/dish-burger.jpg",
+              imageAlt: "Gourmet paneer burger with fries",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-11",
+              name: "LOADED CHEESE FRIES",
+              subtitle: "MELTED CHEDDAR & JALAPENOS",
+              description: "Crispy golden potato fries drenched in warm cheddar cheese sauce, topped with sliced pickled jalapenos and peri-peri seasoning.",
+              price: 150,
+              currency: "INR",
+              image: "/images/star-beans/dish-burger.jpg",
+              imageAlt: "Loaded cheesy fries",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-12",
+              name: "MEXICAN SALSA NACHOS",
+              subtitle: "CRUNCHY TORTILLAS & SOUR CREMA",
+              description: "Crispy corn tortillas baked with melted cheese, house tangy tomato salsa, sliced olives, and cool sour cream dollop.",
+              price: 180,
+              currency: "INR",
+              image: "/images/star-beans/dish-burger.jpg",
+              imageAlt: "Mexican nachos platter",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-13",
+              name: "GRILLED CHEESE & VEGGIE PANINI",
+              subtitle: "CIABATTA BREAD & PESTO",
+              description: "Herb ciabatta bread stuffed with grilled zucchini, bell peppers, mozzarella, and house basil pesto, toasted golden brown.",
+              price: 160,
+              currency: "INR",
+              image: "/images/star-beans/dish-burger.jpg",
+              imageAlt: "Grilled panini sandwich",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            }
+          ]
+        },
+        {
+          id: "shakes-beverages",
+          name: "THICK SHAKES & COOLERS",
+          subtitle: "Decadent dessert shakes & sparkling fruit refreshers",
+          items: [
+            {
+              id: "sb-item-14",
+              name: "BELGIAN DARK CHOCOLATE SHAKE",
+              subtitle: "RICH COCOA & VANILLA ICE CREAM",
+              description: "Thick decadent shake blended with authentic Belgian chocolate ganache, creamy vanilla gelato, and chocolate shavings.",
+              price: 210,
+              currency: "INR",
+              image: "/images/star-beans/dish-shake.jpg",
+              imageAlt: "Belgian chocolate milkshake",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-15",
+              name: "OREO BROWNIE BLAST SHAKE",
+              subtitle: "FUDGE BROWNIE & CRUSHED OREOS",
+              description: "Rich chocolate shake blended with chunks of fudgy chocolate brownie, crushed Oreo cookies, and chocolate fudge swirl.",
+              price: 220,
+              currency: "INR",
+              image: "/images/star-beans/dish-shake.jpg",
+              imageAlt: "Oreo brownie shake",
+              isChefSpecial: true,
+              isVegetarian: true,
+              isGlutenFree: false,
+              available: true
+            },
+            {
+              id: "sb-item-16",
+              name: "BLUE CURACAO VIRGIN MOJITO",
+              subtitle: "FRESH MINT & SPARKLING SODA",
+              description: "Refreshing citrus cooler with blue curacao, muddled lime wedges, fresh garden mint, and chilled sparkling soda.",
+              price: 150,
+              currency: "INR",
+              image: "/images/star-beans/dish-shake.jpg",
+              imageAlt: "Blue curacao mojito",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            },
+            {
+              id: "sb-item-17",
+              name: "PEACH PASSION ICED TEA",
+              subtitle: "BREWED BLACK TEA & FRUIT ESSENCE",
+              description: "Slow-brewed Ceylon tea chilled over ice cubes with sweet peach nectar, passion fruit hints, and a slice of lemon.",
+              price: 130,
+              currency: "INR",
+              image: "/images/star-beans/dish-shake.jpg",
+              imageAlt: "Peach iced tea",
+              isChefSpecial: false,
+              isVegetarian: true,
+              isGlutenFree: true,
+              available: true
+            }
+          ]
+        }
+      ]
+    };
+  }
+
   // Dynamic automatic fallback for any arbitrary prospect slug
   const formattedName = key
     .split("-")
