@@ -39,9 +39,9 @@ export default function DishCard({ dish }) {
           : "border-[#242622]/50 opacity-60 bg-[#111210]"
       }`}
     >
-      <div className="flex gap-3.5 sm:gap-4 items-center">
+      <div className="flex gap-3 sm:gap-4 items-center">
         {/* Left: Wide Rectangular Food Photograph (La Lumière style 4:3) */}
-        <div className="relative shrink-0 w-28 sm:w-36 md:w-36 lg:w-44 aspect-[4/3] rounded-xl overflow-hidden bg-[#111110] border border-[#242622] shadow-inner">
+        <div className="relative shrink-0 w-24 sm:w-36 md:w-36 lg:w-44 aspect-[4/3] rounded-xl overflow-hidden bg-[#111110] border border-[#242622] shadow-inner">
           <img
             src={dish.image || "/images/hero-canvas.jpg"}
             alt={dish.imageAlt || dish.name}
@@ -98,16 +98,16 @@ export default function DishCard({ dish }) {
           </div>
 
           {/* Price & Action Row */}
-          <div className="flex items-center justify-between gap-2 mt-2.5 pt-2 border-t border-[#242622]/60">
+          <div className="flex flex-wrap items-center justify-between gap-x-2 gap-y-2 mt-2.5 pt-2 border-t border-[#242622]/60">
             {/* Price & Dietary tags */}
-            <div className="flex items-center gap-2">
+            <div className="flex items-center flex-wrap gap-1.5 sm:gap-2 min-w-0">
               <span className="font-body text-sm sm:text-base font-medium text-[#B99A65] tracking-tight">
                 {formattedPrice}
               </span>
 
               {dish.isVegetarian && (
                 <span
-                  className="inline-flex items-center gap-0.5 text-[9px] text-[#86efac] font-medium bg-[#86efac]/10 border border-[#86efac]/25 px-1.5 py-0.2 rounded-xs"
+                  className="inline-flex items-center gap-0.5 text-[9px] text-[#86efac] font-medium bg-[#86efac]/10 border border-[#86efac]/25 px-1.5 py-0.5 rounded-xs"
                   title="Vegetarian"
                 >
                   <FaLeaf className="w-2 h-2" />
@@ -116,7 +116,7 @@ export default function DishCard({ dish }) {
               )}
               {dish.isGlutenFree && (
                 <span
-                  className="inline-flex items-center gap-0.5 text-[9px] text-[#fcd34d] font-medium bg-[#fcd34d]/10 border border-[#fcd34d]/25 px-1.5 py-0.2 rounded-xs"
+                  className="inline-flex items-center gap-0.5 text-[9px] text-[#fcd34d] font-medium bg-[#fcd34d]/10 border border-[#fcd34d]/25 px-1.5 py-0.5 rounded-xs"
                   title="Gluten-Free"
                 >
                   <LuWheatOff className="w-2 h-2" />
@@ -126,7 +126,7 @@ export default function DishCard({ dish }) {
             </div>
 
             {/* Action: Add / Quantity Stepper */}
-            <div>
+            <div className="shrink-0 ml-auto">
               {!isAvailable ? (
                 <span className="text-[10px] font-semibold text-[#776B5D] px-2.5 py-1 bg-[#111110] border border-[#24221F] rounded-full uppercase tracking-wider cursor-not-allowed">
                   Sold Out
@@ -159,7 +159,7 @@ export default function DishCard({ dish }) {
                 <button
                   onClick={handleAdd}
                   aria-label={`Add ${dish.name} to order`}
-                  className="group/btn flex items-center gap-1.5 px-3 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-semibold bg-[#111110] text-[#EAE3D7] border border-[#B99A65]/50 hover:bg-[#B99A65] hover:text-[#111110] active:scale-95 transition-all duration-150 shadow-xs"
+                  className="group/btn flex items-center gap-1 sm:gap-1.5 px-2.5 sm:px-3.5 py-1 sm:py-1.5 rounded-full text-xs font-semibold bg-[#111110] text-[#EAE3D7] border border-[#B99A65]/50 hover:bg-[#B99A65] hover:text-[#111110] active:scale-95 transition-all duration-150 shadow-xs whitespace-nowrap"
                 >
                   <FaPlus className="w-2.5 h-2.5 text-[#B99A65] group-hover/btn:text-[#111110] transition-colors" />
                   <span>Add</span>
